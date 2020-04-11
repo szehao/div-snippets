@@ -1,34 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react'
+import { sliderColor } from "../constants"
 
-const style = {
-	position: 'absolute',
-	top: 0,
-	bottom: 0,
-	right: 0,
-	left: 0,
-	width: "100%",
-	height: "50%",
-	background : "black",
-	transform : "skewY(6deg)",
-	transformOrigin : "top right"
+export default function Skewed({ reversed, angle, origin}) {
+
+	const style = {
+		position: "absolute",
+		top: 0,
+		bottom: 0,
+		right: 0,
+		left: 0,
+		width: "100%",
+		height: "50%",
+		transform: "skewY(6deg)",
+		transformOrigin: "top right",
+		backgroundColor: sliderColor
+	};
+
+	const transform = {
+		transform: reversed ? `skewY(${-Math.abs(angle)}deg)` : `skewY(${angle}deg)`
+	};
+
+	return (
+		<div
+			className="skewed"
+			style={{
+				...style,
+				...transform,
+				...(origin ? { transformOrigin: origin } : null)
+			}}
+		/>
+	)
 }
-
-class Skewed extends Component {
-	constructor(props) {
-		super(props);
-	}
-
-	render() {
-		return (
-			<div 
-				className="skewed" 
-				style={{...style, 
-						...this.props.transform? {transform : this.props.transform} : null,
-						...this.props.background? {background : this.props.background} : null}} 
-
-			/>
-		);
-	}
-}
-
-export default Skewed;

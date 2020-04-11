@@ -3,15 +3,26 @@ $color : #e3edeb;
 main{
 	background-color: rgb(237,242,247);
 	display: flex;
+
+	section{
+		width: 70%;
+		height: 100vh;
+		position: relative;
+	}
+	
+	aside{
+		width: 30%;
+		height: 100vh;
+		box-sizing: border-box;
+		padding:20px;
+	
+		.switch-container{
+			margin-top: 20px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			height:50px;
+		}
+	}
 }
 
-section{
-	width: 70%;
-	height: 100vh;
-	position: relative;
-}
-
-aside{
-	width: 30%;
-	height: 100vh;
-}

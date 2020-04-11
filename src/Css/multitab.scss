@@ -1,0 +1,10 @@
+.multiTab-container{
+	width: 90%;
+	margin: 0 auto;
+
+	.tab-header{
+		display: flex;
+		flex-direction: row;
+		background-color: red;
+	}
+}
