@@ -1,6 +1,6 @@
 import React from 'react';
 import Switch from './Switch.js';
-import '../Css/Slider.scss';
+import '../Css/Settings.scss';
 import { sliderColor , sliderBackground } from "../constants";
 
 export default function Settings({

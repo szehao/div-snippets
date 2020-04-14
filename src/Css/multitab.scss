@@ -1,10 +1,114 @@
 .multiTab-container{
 	width: 90%;
-	margin: 0 auto;
+	margin: 2em auto;
+	background: rgb(223,230,238);
+	border-radius: 5px;
 
 	.tab-header{
 		display: flex;
 		flex-direction: row;
-		background-color: red;
+		justify-content: space-around;
+		align-items: center;
+		cursor: pointer;
+		position: relative;
+		min-height: 40px;
+		max-height: auto;
+
+		.tab-title{
+			min-height:30px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		#active-border{
+			position: absolute;
+			bottom:0;
+			left:0;
+			height:3px;
+			background:blue;
+			transition: left 0.5s ease;
+		}
+	}
+
+	.tab-content{
+		padding: 5%;
+		flex-direction: column;
+		display: flex;
+
+		.button-container{
+			display: flex;
+			align-self: flex-end;
+			position: relative;
+			flex-direction: column;
+
+			button{
+				border:none;
+				background-color: #d1dae3;
+				padding:8px 10px;
+				border-radius: 5px;
+				outline: none;
+				display: flex;
+				align-items: center;
+				cursor: pointer;
+				transition: background-color .5s ease;
+
+				&:hover{
+					transition: background-color .5s ease;
+					background: #bcc4cc;
+				}
+	
+				&:before{
+					content : "";
+					display: block;
+					background: url("../img/copyIcon.svg") no-repeat;
+					width: 25px;
+					height: 25px;
+					float: left;
+					margin-right: 0.5em;
+				}
+			}
+	
+			.triangle {
+				position: absolute;
+				background: #2c3e50;
+				height: 20px;
+				width: 50px;
+				top:0;
+				border-radius: 5px;
+				font-size:14px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				padding:2px 4px;
+				color: white;
+				align-self: flex-end;		
+				display: none;
+				margin-top: -2.5em;
+				&:before {
+					content: '';
+					position: absolute;
+					bottom: 0;
+					width: 0;
+					height: 0;
+					border-style: solid;
+					border-width: 9px 7px 3px 7px;
+					border-color: #2c3e50 transparent transparent transparent;
+					left: 70%;
+					transform: translateX(-50%) translateY(100%);
+				}
+			}
+		}
+
+		
+	}
+}
+
+@keyframes fadeOut{
+	0%{
+		opacity:1;
+	}
+	100%{
+		opacity:0;
 	}
 }
