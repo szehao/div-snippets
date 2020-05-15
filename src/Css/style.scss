@@ -1,28 +1,211 @@
-$color : #e3edeb;
+$primary: #ba54ff;
+$background: #edf2f7;
 
-main{
-	background-color: rgb(237,242,247);
+:root {
+	// Curve
+	--side-curve-border-left: 50% 40%;
+	--side-curve-border-right: 50% 40%;
+	--height-curve-reversed: 40%;
+	// Triangle
+	--triangle-border-width: 198px 198px 0 198px;
+	--triangle-border-color: #{$primary} transparent transparent transparent;
+	--triangle-translate: translateX(-50%) translateY(98%);
+	--triangle-left: 50%;
+	// SemiCircle
+	--sc-left: 50%;
+	--sc-width: 120px;
+	--sc-height: 100px;
+	--sc-border-radius: 50%;
+	--sc-top: 50%;
+	--sc-background: #{$primary};
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: $primary;
+}
+
+main {
+	background-color: $background;
 	display: flex;
 
-	section{
-		width: 70%;
-		height: 100vh;
+	section {
 		position: relative;
+		background: none;
+		width: 70%;
+		height: 50vh;
+
+		/*============
+		=  	SKEWED	 =
+		============*/
+		.skewed {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			transform: skewY(6deg);
+			transform-origin: top right;
+			background-color: $primary;
+		}
 	}
-	
-	aside{
+	/*================
+	= 	  CURVE	   	 =
+	================*/
+	.curve {
+		border-bottom-left-radius: var(--side-curve-border-left);
+		border-bottom-right-radius: var(--side-curve-border-right);
+	}
+
+	.curve-reversed {
+		&:before {
+			content: '';
+			border-top-left-radius: var(--side-curve-border-left);
+			border-top-right-radius: var(--side-curve-border-right);
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			background: $background;
+			height: var(--height-curve-reversed);
+		}
+	}
+	/*================
+	= 	 TRIANGLE  	 =
+	================*/
+	.triangle {
+		background-color: $primary;
+		height: 40vh;
+		&:before {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-width: var(--triangle-border-width);
+			border-color: var(--triangle-border-color);
+			left: var(--triangle-left);
+			transform: var(--triangle-translate);
+		}
+	}
+
+	aside {
 		width: 30%;
 		height: 100vh;
 		box-sizing: border-box;
-		padding:20px;
-	
-		.switch-container{
+		padding: 20px;
+		overflow-y: auto;
+
+		.switch-container {
 			margin-top: 20px;
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
-			height:50px;
+			height: 50px;
+		}
+	}
+	/*================
+	=	SEMICIRCLE	 =
+	================*/
+	.semicircle {
+		background-color: $primary;
+		height: 40vh;
+		&:before {
+			content: '';
+			position: absolute;
+			bottom: 0px;
+			left: var(--sc-left);
+			width: var(--sc-width);
+			height: var(--sc-height);
+			border-radius: var(--sc-border-radius);
+			background: var(--sc-background);
+			transform: translateX(-50%) translateY(var(--sc-top));
+		}
+	}
+
+	aside {
+		width: 30%;
+		height: 100vh;
+		box-sizing: border-box;
+		padding: 20px;
+		overflow-y: auto;
+
+		.switch-container {
+			margin-top: 20px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			height: 50px;
 		}
 	}
 }
 
+.option-container {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 70%;
+	margin-bottom: 2%;
+	padding: 0% 3% 2% 3%;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-end;
+
+	.box-option {
+		width: 15%;
+		height: 15%;
+		cursor: pointer;
+		transition: all 0.5s ease;
+		box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.02), 0 6.7px 5.3px rgba(0, 0, 0, 0.028),
+			0 12.5px 10px rgba(0, 0, 0, 0.035), 0 22.3px 17.9px rgba(0, 0, 0, 0.042),
+			0 41.8px 33.4px rgba(0, 0, 0, 0.05), 0 100px 80px rgba(0, 0, 0, 0.07);
+		position: relative;
+
+		&:before {
+			content: '';
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			transition: background 1s ease;
+			background: rgba(0, 0, 0, 0.3);
+		}
+
+		&:hover::before {
+			background: none;
+		}
+
+		img {
+			width: 100%;
+			height: 100%;
+		}
+
+		&:not(.active):hover {
+			width: 17%;
+			height: 17%;
+		}
+	}
+
+	.active {
+		cursor: default;
+		width: 17%;
+		height: 17%;
+		&:before {
+			background: none;
+		}
+	}
+}

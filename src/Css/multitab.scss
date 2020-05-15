@@ -1,10 +1,10 @@
-.multiTab-container{
+.multiTab-container {
 	width: 90%;
-	margin: 2em auto;
-	background: rgb(223,230,238);
-	border-radius: 5px;
+	margin: 2em auto 0 auto;
+	background: rgb(223, 230, 238);
+	border-radius: 10px;
 
-	.tab-header{
+	.tab-header {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-around;
@@ -14,38 +14,38 @@
 		min-height: 40px;
 		max-height: auto;
 
-		.tab-title{
-			min-height:30px;
+		.tab-title {
+			min-height: 30px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 		}
 
-		#active-border{
+		#active-border {
 			position: absolute;
-			bottom:0;
-			left:0;
-			height:3px;
-			background:blue;
+			bottom: 0;
+			left: 0;
+			height: 3px;
+			background: blue;
 			transition: left 0.5s ease;
 		}
 	}
 
-	.tab-content{
+	.tab-content {
 		padding: 5%;
 		flex-direction: column;
 		display: flex;
 
-		.button-container{
+		.button-container {
 			display: flex;
 			align-self: flex-end;
 			position: relative;
 			flex-direction: column;
 
-			button{
-				border:none;
+			button {
+				border: none;
 				background-color: #d1dae3;
-				padding:8px 10px;
+				padding: 8px 10px;
 				border-radius: 5px;
 				outline: none;
 				display: flex;
@@ -53,13 +53,13 @@
 				cursor: pointer;
 				transition: background-color .5s ease;
 
-				&:hover{
+				&:hover {
 					transition: background-color .5s ease;
 					background: #bcc4cc;
 				}
-	
-				&:before{
-					content : "";
+
+				&:before {
+					content: "";
 					display: block;
 					background: url("../img/copyIcon.svg") no-repeat;
 					width: 25px;
@@ -68,21 +68,21 @@
 					margin-right: 0.5em;
 				}
 			}
-	
-			.triangle {
+
+			.pop-triangle {
 				position: absolute;
 				background: #2c3e50;
 				height: 20px;
 				width: 50px;
-				top:0;
+				top: 0;
 				border-radius: 5px;
-				font-size:14px;
+				font-size: 14px;
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				padding:2px 4px;
+				padding: 2px 4px;
 				color: white;
-				align-self: flex-end;		
+				align-self: flex-end;
 				display: none;
 				margin-top: -2.5em;
 				&:before {
@@ -95,20 +95,18 @@
 					border-width: 9px 7px 3px 7px;
 					border-color: #2c3e50 transparent transparent transparent;
 					left: 70%;
-					transform: translateX(-50%) translateY(100%);
+					transform: translateX(-50%) translateY(95%);
 				}
 			}
 		}
-
-		
 	}
 }
 
-@keyframes fadeOut{
-	0%{
-		opacity:1;
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
 	}
-	100%{
-		opacity:0;
+	100% {
+		opacity: 0;
 	}
 }

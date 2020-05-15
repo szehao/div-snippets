@@ -1,56 +1,57 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Switch from './Switch.js';
 import '../Css/Settings.scss';
-import { sliderColor , sliderBackground } from "../constants";
+import { primaryColor, sliderBackground } from '../constants';
+import { useReducer } from 'react';
 
-export default function Settings({
-	value,
-	min,
-	max,
-	title,
+export default function Settings ({
+	children,
 	handleCheck,
 	reversed,
-	change,
-	checkbox
+	checkbox,
+	maxheight = '500px',
+	show = React.Children.count
 }) {
+	const [ initHeight, setInitHeight ] = useState('');
+	const [ height, setHeight ] = useReducer((state, action) => (state = action), 0);
 
-	const backgroundValue = (value/max)*100;
-	const style = {
-		background : 
-		`linear-gradient(to right, ${sliderColor} 0%, ${sliderColor} ` +
-		backgroundValue +
-		`%, ${sliderBackground} ` +
-		backgroundValue +
-		`%, ${sliderBackground} 100%)`
-	};
+	useEffect(
+		() => {
+			const slider = document.querySelector('.slider-container');
+			const sliderContainerHeight = slider.getBoundingClientRect().height;
+			const sliderContainerMargin = getComputedStyle(slider).getPropertyValue('margin-bottom');
+			const sliderTotalHeight = sliderContainerHeight + parseInt(sliderContainerMargin);
+			const settingsContainerHeight = sliderTotalHeight * show + 'px';
+			setHeight(settingsContainerHeight);
+			setInitHeight(settingsContainerHeight);
+		},
+		[ show, initHeight ]
+	);
+
+	useEffect(
+		() => {
+			if (reversed) {
+				let tempHeight = parseInt(initHeight) + 70 + 'px';
+				setHeight(tempHeight);
+			} else {
+				setHeight(initHeight);
+			}
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		},
+		[ reversed, initHeight ]
+	);
 
 	return (
 		<div className="settings">
-			<div className="head">
-				<div className="title">{title || "Title"}</div>
-				<div className="value">{reversed? -value : value || "Value "}</div>
+			<div className="slider-main-container" style={{ maxHeight: height }}>
+				{children}
 			</div>
-			<input
-				type="range"
-				className="slider"
-				min={min || 1}
-				max={max || 100}
-				defaultValue={value || 50}
-				onChange={change}
-				style={style}
-			/>		
 			{checkbox ? (
-			<div className="switch-container">
-				<span>Reversed</span>
-				<Switch
-					background={reversed ? sliderColor : sliderBackground}
-					handleCheck={handleCheck}
-				/>
-			</div>
+				<div className="switch-container">
+					<span>Reversed</span>
+					<Switch background={reversed ? primaryColor : sliderBackground} handleCheck={handleCheck} />
+				</div>
 			) : null}
 		</div>
 	);
 }
-
-
-
