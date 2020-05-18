@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Switch from './Switch.js';
 import '../Css/Settings.scss';
-import { primaryColor, sliderBackground } from '../constants';
+import { primaryColor, sliderBackground, findElement } from '../constants';
 import { useReducer } from 'react';
 
 export default function Settings ({
@@ -9,19 +9,19 @@ export default function Settings ({
 	handleCheck,
 	reversed,
 	checkbox,
-	maxheight = '500px',
-	show = React.Children.count
+	show = React.Children.count(children)
 }) {
 	const [ initHeight, setInitHeight ] = useState('');
 	const [ height, setHeight ] = useReducer((state, action) => (state = action), 0);
-
+	const [ sliderTotalHeight, setSliderHeight ] = useState('');
 	useEffect(
 		() => {
-			const slider = document.querySelector('.slider-container');
-			const sliderContainerHeight = slider.getBoundingClientRect().height;
-			const sliderContainerMargin = getComputedStyle(slider).getPropertyValue('margin-bottom');
-			const sliderTotalHeight = sliderContainerHeight + parseInt(sliderContainerMargin);
-			const settingsContainerHeight = sliderTotalHeight * show + 'px';
+			const slider = findElement('.slider-container');
+			const sliderHeight = slider.getBoundingClientRect().height;
+			const sliderMarginBottom = getComputedStyle(slider).getPropertyValue('margin-bottom');
+			const sliderTotalHeight = sliderHeight + parseInt(sliderMarginBottom);
+			const settingsContainerHeight = Math.round(sliderTotalHeight * show);
+			setSliderHeight(sliderTotalHeight);
 			setHeight(settingsContainerHeight);
 			setInitHeight(settingsContainerHeight);
 		},
@@ -31,19 +31,19 @@ export default function Settings ({
 	useEffect(
 		() => {
 			if (reversed) {
-				let tempHeight = parseInt(initHeight) + 70 + 'px';
-				setHeight(tempHeight);
+				const childrenCount = React.Children.count(children);
+				let tempHeight = parseInt(initHeight) + sliderTotalHeight * (childrenCount - show);
+				setHeight(Math.round(tempHeight));
 			} else {
 				setHeight(initHeight);
 			}
-			// eslint-disable-next-line react-hooks/exhaustive-deps
 		},
-		[ reversed, initHeight ]
+		[ reversed, initHeight, sliderTotalHeight, children, show ]
 	);
 
 	return (
 		<div className="settings">
-			<div className="slider-main-container" style={{ maxHeight: height }}>
+			<div className="slider-main-container" style={{ maxHeight: `${height}px` }}>
 				{children}
 			</div>
 			{checkbox ? (

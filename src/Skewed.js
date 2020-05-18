@@ -10,9 +10,8 @@ import Content from './Components/Content';
 import { primaryColor } from './constants';
 
 export default function Skewed () {
-	const [ angle, setAngle ] = useState(6);
+	const [ angle, setAngle ] = useState(-6);
 	const [ reversed, setReversed ] = useState(false);
-	const [ origin, setOrigin ] = useState('top right');
 
 	const handleChange = ({ target: { value } }) => {
 		reversed ? setAngle(-value) : setAngle(value);
@@ -20,11 +19,6 @@ export default function Skewed () {
 
 	const handleReversion = () => {
 		setReversed((prevReversed) => !prevReversed);
-		setAngle((prevAngle) => -prevAngle);
-	};
-
-	const transform = {
-		transform : `skewY(${angle}deg)`
 	};
 
 	const html = `<section>\n	<div class="skewed"></div>\n</section>`;
@@ -38,17 +32,13 @@ export default function Skewed () {
 		\n	width : 100%;\
 		\n	height : 100%;\
 		\n	transform : skewY(${angle}deg);\
-		\n	transform-origin : ${origin};\
+		\n	transform-origin : top ${reversed ? 'left' : 'right'}\
 		\n	background-color : ${primaryColor};\
 		\n}`;
 
 	useEffect(
 		() => {
-			if (reversed) {
-				setOrigin('top left');
-			} else {
-				setOrigin('top right');
-			}
+			setAngle((prevAngle) => -prevAngle);
 		},
 		[ reversed ]
 	);
@@ -59,8 +49,8 @@ export default function Skewed () {
 				<div
 					className="skewed"
 					style={{
-						...transform,
-						...(origin ? { transformOrigin: origin } : null)
+						transform       : `skewY(${angle}deg)`,
+						transformOrigin : `top ${reversed ? 'left' : 'right'}`
 					}}
 				/>
 			</section>

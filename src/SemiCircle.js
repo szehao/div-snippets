@@ -65,16 +65,7 @@ export default function SemiCircle () {
 
 	useEffect(
 		() => {
-			if (reversed) {
-				// --triangle-translate: translateX(-50%) translateY(99%);
-			}
-		},
-		[ reversed ]
-	);
-
-	useEffect(
-		() => {
-			const property = [
+			let property = [
 				{
 					name  : '--sc-width',
 					value : `${width}%`
@@ -109,7 +100,7 @@ export default function SemiCircle () {
 		<main>
 			<section className="semicircle" />
 			<aside>
-				<Settings reversed={reversed} handleCheck={handleReversion} checkbox>
+				<Settings reversed={reversed} handleCheck={handleReversion} show="1" checkbox>
 					<Slider title="Width" change={handleChange} max="50" value={width} />
 					<Slider title="Height" change={handleChange} value={height} />
 					<Slider title="Border Radius" change={handleChange} max="50" value={borderRadius} />

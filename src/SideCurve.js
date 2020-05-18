@@ -59,10 +59,6 @@ export default function SideCurve () {
 			\n	height : ${height}%;\
 			\n}`}`;
 
-	const style = {
-		background : primaryColor
-	};
-
 	useEffect(
 		() => {
 			const property = [
@@ -86,7 +82,7 @@ export default function SideCurve () {
 
 	return (
 		<main>
-			<section style={{ ...style }} className={reversed ? 'curve-reversed' : 'curve'} />
+			<section style={{ background: primaryColor }} className={reversed ? 'curve-reversed' : 'curve'} />
 			<aside>
 				<Settings reversed={reversed} handleCheck={handleReversion} show="2" checkbox>
 					<Slider title="Side Curve" change={handleChange} value={sideCurve} />

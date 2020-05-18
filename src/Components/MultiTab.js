@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { findAll } from '../constants';
+import { findAllElement } from '../constants';
 import '../Css/multitab.scss';
 
 export default function MultiTab ({ children }) {
@@ -10,29 +10,26 @@ export default function MultiTab ({ children }) {
 		() => {
 			// Check if Children passed is valid
 			try {
-				if (!Array.isArray(children)) {
-					throw new Error('MultiTab must have at least 2 children');
-				}
-				if (children[0].type.name !== 'TabHeader') {
-					throw new Error('TabHeader must come before TabContents');
-				}
-				if (children.length - 1 !== children[0].props.children.length) {
+				if (!Array.isArray(children)) throw new Error('MultiTab must have at least 2 children');
+				if (children[0].type.name !== 'TabHeader') throw new Error('TabHeader must come before TabContents');
+				if (React.Children.count(children) - 1 !== React.Children.count(children[0].props.children))
 					throw new Error('Number of TabContents must be the same as Tabs');
-				}
+
 				// If all condition passes, create function
-				const handleClick = (e, contentName) => {
-					findAll('.tab-content').forEach((ele) => {
-						ele.style.display = 'none';
+
+				const handleClick = (event, contentName) => {
+					findAllElement('.tab-content').forEach((tabContent) => {
+						tabContent.style.display = 'none';
 					});
+					const contentElement = document.getElementById(contentName);
 					// Checks to make sure id passed by TabContents is same as TabHeader
 					try {
-						if (document.getElementById(contentName) === null) {
-							throw new Error('TabContent must have an ID that matches Tabs');
-						}
-						const tabs = findAll('.tab-title');
-						let tabCount = tabs.length;
+						if (contentElement == null) throw new Error('TabContent must have an ID that matches Tabs');
+
+						const tabs = findAllElement('.tab-title');
+						const tabCount = tabs.length;
 						tabs.forEach((tab, index) => {
-							if (tab === e.target) {
+							if (tab === event.target) {
 								let left = 0;
 								if (index > 0) {
 									left = index / tabCount * 100 + '%';
@@ -40,7 +37,7 @@ export default function MultiTab ({ children }) {
 								document.getElementById('active-border').style.left = left;
 							}
 						});
-						document.getElementById(contentName).style.display = 'flex';
+						contentElement.style.display = 'flex';
 					} catch (error) {
 						setErrorMsg(error.message);
 					}

@@ -153,9 +153,9 @@ main {
 .option-container {
 	position: absolute;
 	bottom: 0;
-	left: 0;
+	left: 10%;
 	right: 0;
-	width: 70%;
+	width: 50%;
 	margin-bottom: 2%;
 	padding: 0% 3% 2% 3%;
 	box-sizing: border-box;
@@ -165,8 +165,8 @@ main {
 	align-items: flex-end;
 
 	.box-option {
-		width: 15%;
-		height: 15%;
+		width: 17%;
+		height: 17%;
 		cursor: pointer;
 		transition: all 0.5s ease;
 		box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.02), 0 6.7px 5.3px rgba(0, 0, 0, 0.028),
@@ -195,15 +195,15 @@ main {
 		}
 
 		&:not(.active):hover {
-			width: 17%;
-			height: 17%;
+			width: 20%;
+			height: 20%;
 		}
 	}
 
 	.active {
 		cursor: default;
-		width: 17%;
-		height: 17%;
+		width: 20%;
+		height: 20%;
 		&:before {
 			background: none;
 		}

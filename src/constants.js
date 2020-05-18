@@ -3,22 +3,21 @@ export const backgroundColor = '#edf2f7';
 export const sliderBackground = '#d3d3d3';
 
 //Function exports
-export const find = (ele) => {
-	if (document.querySelector(ele) == null) {
-		return 'Undefined element';
-	}
-	return document.querySelector(ele);
+export const findElement = (ele) => {
+	const element = document.querySelector(ele);
+	if (element == null) return 'Undefined element';
+	return element;
 };
 
-export const findAll = (ele) => {
-	if (document.querySelectorAll(ele) == null) {
-		return 'Undefined element';
-	}
-	return document.querySelectorAll(ele);
+export const findAllElement = (ele) => {
+	const element = document.querySelectorAll(ele);
+	if (element == null) return 'Undefined element';
+	return element;
 };
 
-export const copyText = (ele, eleCopy) => {
-	const textToCopy = document.getElementById(eleCopy);
+export const copyText = (ele, eleToCopy) => {
+	if (ele == null || eleToCopy == null) return;
+	const elementToCopy = document.getElementById(eleToCopy);
 
 	let currentRange;
 	if (document.getSelection().rangeCount > 0) {
@@ -30,7 +29,7 @@ export const copyText = (ele, eleCopy) => {
 
 	const CopyRange = document.createRange();
 
-	CopyRange.selectNode(textToCopy);
+	CopyRange.selectNode(elementToCopy);
 	window.getSelection().addRange(CopyRange);
 	document.execCommand('copy');
 
@@ -41,7 +40,6 @@ export const copyText = (ele, eleCopy) => {
 	}
 
 	//Triangle animation
-
 	const triangle = ele.target.previousSibling;
 	triangle.style.display = 'flex';
 	triangle.style.animation = 'fadeOut 2s ease';
@@ -50,7 +48,7 @@ export const copyText = (ele, eleCopy) => {
 
 export const setRootVariables = (array) => {
 	try {
-		array.map((object) => document.documentElement.style.setProperty(object.name, object.value));
+		array.map(({ name, value }) => document.documentElement.style.setProperty(name, value));
 	} catch (error) {
 		console.error(error);
 	}
