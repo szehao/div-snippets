@@ -15,6 +15,12 @@ export const findAllElement = (ele) => {
 	return element;
 };
 
+export const findElementById = (ele) => {
+	const element = document.getElementById(ele);
+	if (element == null) return 'Undefined element';
+	return element;
+};
+
 export const copyText = (ele, eleToCopy) => {
 	if (ele == null || eleToCopy == null) return;
 	const elementToCopy = document.getElementById(eleToCopy);

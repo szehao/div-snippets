@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Settings from './Components/Settings';
+import Settings, { Slider } from './Components/Settings';
 import MultiTab from './Components/MultiTab';
-import Tabs from './Components/Tabs';
-import TabContent from './Components/TabContent';
-import TabHeader from './Components/TabHeader';
-import CopyButton from './Components/CopyButton';
-import Content from './Components/Content';
+import TabContent, { CopyButton, Content } from './Components/TabContent';
+import TabHeader, { Tabs } from './Components/TabHeader';
 import { primaryColor, backgroundColor, setRootVariables } from './constants';
-import Slider from './Components/Slider';
 
 export default function Triangle () {
 	const [ leftBorder, setLeftBorder ] = useState(120);
