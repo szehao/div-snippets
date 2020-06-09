@@ -1,3 +1,3 @@
-### Div Snippet Generator
+### Div Snippet Generator ###
 
 Made with ReactJS
